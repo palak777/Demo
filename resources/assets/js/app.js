@@ -1,16 +1,23 @@
-
 import Vue from 'vue';
+
 import VueRouter from 'vue-router';
-import Demo from './components/demo.vue';
-
-
+Vue.use(VueRouter);
 
 import VueAxios from 'vue-axios';
-import Axios from 'axios';
+import axios from 'axios';
+Vue.use(VueAxios, axios);
 
+import Demo from './demo.vue';
 
-Vue.use(VueAxios,Axios);
+import Employee from './components/employee.vue';
+const routes = [
 
+  {
+      name: 'Employee',
+      path: '/employees',
+      component: Employee
+  }
+];
 
-
-new Vue(Vue.util.extend({ router },Demo)).$mount('#app');
+const router = new VueRouter({ mode: 'history', routes: routes});
+new Vue(Vue.util.extend({ router }, Demo)).$mount('#app');
