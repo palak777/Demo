@@ -5,10 +5,10 @@
         <div class="row">
           <div class="col-md-10"></div>
           <div class="col-md-2">
-                 <router-link :to="{ name: 'AddEmployee' }" class="btn btn-primary">Add</router-link>
+                 <router-link :to="{ name: 'addEmployee' }" class="btn btn-primary">Add</router-link>
           </div>
         </div><br />
-        
+        <div class="row" v-show="employeeData == 0">There is no data</div>
         <div class="row">
             <table class="table table-hover">
                 <thead>
@@ -29,7 +29,7 @@
                         <td>{{ employee.email }}</td>
                         <td>{{ employee.mobile_no }}</td>
                         <td>
-                            <button class="btn btn-danger" :to="{name: 'EditEmployee'}">Edit</button>
+                            <button class="btn btn-danger" :to="{name: 'editEmployee'}">Edit</button>
                             <button class="btn btn-danger" v-on:click="deleteEmployee(employee.id)">Delete</button>
                         </td>
                     </tr>
@@ -54,7 +54,7 @@
         methods: {
             fetchEmployee()
             {
-              let uri = 'http://localhost:8000/employees';
+              let uri = 'http://localhost:8000';
               this.axios.get(uri).then((response) => {
                   this.employeeData = response.data;
               });

@@ -2,17 +2,12 @@
   <div>
     <h1>Create An Employee</h1>
     <form v-on:submit.prevent="addEmployee">
-    <div class="form-group">
-      <label for="formName">Full Name:</label>
-      <input type="text" name="name" class="form-control" id="formName" v-model="employeeData.first_name" v-validate="'required'"> 
-      <span v-show="errors.has('name')" class="text-danger">{{ errors.first('name') }}</span>
-    </div>
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
             <label>First Name:</label>
-            <input type="text" class="form-control" v-model="employeeData.first_name" v-validate="'required'" name="firstName" >
-            <span v-show="errors.has('firstName')">First Name is Required</span>
+            <input type="text" class="form-control" v-model="employeeData.first_name" name="firstName" >
+            <!-- <span v-show="errors.has('firstName')">First Name is Required</span> -->
           </div>
         </div>
         </div>
