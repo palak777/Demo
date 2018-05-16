@@ -7,10 +7,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model
 {
-    use SoftDeletes;
-    protected $table='employee';
-
-   function countryList(){
-   		return $this->hasOne('App\Country','id','country');
-   }
+    protected $fillable = ['first_name','last_name','email','password', 'mobile_no'];
 }

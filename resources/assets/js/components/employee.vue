@@ -58,7 +58,7 @@
               this.axios.get(uri).then((response) => {
                   this.employeeData = response.data;
               });
-            }
+            },
             deleteEmployee(id)
             {
               let uri = `http://localhost:8000/employees/${id}`;
