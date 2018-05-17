@@ -46,7 +46,7 @@
       </v-layout>
       <v-layout>
         <v-btn type="submit">submit</v-btn>
-        <v-btn color="error" @click="clear">clear</v-btn>
+       
       </v-layout>
     </v-container>
     </form>
@@ -63,7 +63,7 @@
         },
 
         created: function(){
-            this.getItem();
+            this.getEmployee();
         },
 
         methods: {

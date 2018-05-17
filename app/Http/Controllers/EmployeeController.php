@@ -90,7 +90,8 @@ class EmployeeController extends Controller
         $employeeData->email=$request->get('email');
         $employeeData->password=$request->get('password');
         $employeeData->mobile_no=$request->get('mobile_no');
-        $employeeData.save();
+        
+        $employeeData->save();
 
         return response()->json('Successfully Updated');  
     }
@@ -104,8 +105,7 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         $employeeData=Employee::find($id);
-        $employeeData->delete();
-        
-        return redirect()->json('Successfully Deleted !');
+        $employeeData->delete();    
+        return response()->json('Successfully Deleted !');
     }
 }
