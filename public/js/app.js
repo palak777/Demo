@@ -38817,21 +38817,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            headers: [{ text: 'No', value: '#' }, { text: 'First Name', value: 'First Name' }, { text: 'Last Name', value: 'Last Name' }, { text: 'Email Id', value: 'Email Id' }, { text: 'Mobile No', value: 'Mobile No.' }],
+            search: '',
+            pagination: {},
             employeeData: []
 
         };
     },
 
+    computed: {
+        pages: function pages() {
+            if (this.pagination.rowsPerPage == null || this.pagination.totalItems == null) return 0;
+
+            return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
+        }
+    },
     created: function created() {
         this.fetchEmployee();
     },
@@ -38842,7 +38847,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var uri = 'http://127.0.0.1:8000/employees';
             this.axios.get(uri).then(function (response) {
                 _this.employeeData = response.data;
-                //console.log(response.data);
             });
         }
     }
@@ -38856,55 +38860,61 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "v-data-table",
-        {
+  return _c("v-app", { attrs: { id: "inspire" } }, [
+    _c(
+      "div",
+      [
+        _c(
+          "v-btn",
+          {
+            staticClass: "mb-2",
+            attrs: {
+              slot: "activator",
+              color: "primary",
+              dark: "",
+              to: { name: "addEmployee" }
+            },
+            slot: "activator"
+          },
+          [_vm._v("New Employee")]
+        ),
+        _vm._v(" "),
+        _c("v-data-table", {
           staticClass: "elevation-1",
+          attrs: {
+            headers: _vm.headers,
+            items: _vm.employeeData,
+            search: _vm.search,
+            pagination: _vm.pagination
+          },
+          on: {
+            "update:pagination": function($event) {
+              _vm.pagination = $event
+            }
+          },
           scopedSlots: _vm._u([
             {
-              key: "employeeData",
-              fn: function(employee) {
-                return _c("tr", {}, [
-                  _c("td", [_vm._v(_vm._s(employee.id))]),
+              key: "items",
+              fn: function(props) {
+                return [
+                  _c("td", [_vm._v(_vm._s(props.item.id))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(employee.first_name))]),
+                  _c("td", [_vm._v(_vm._s(props.item.first_name))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(employee.last_name))]),
+                  _c("td", [_vm._v(_vm._s(props.item.last_name))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(employee.email))]),
+                  _c("td", [_vm._v(_vm._s(props.item.email))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(employee.mobile_no))])
-                ])
+                  _c("td", [_vm._v(_vm._s(props.item.mobile_no))])
+                ]
               }
             }
           ])
-        },
-        [
-          _c(
-            "tr",
-            [
-              _c("v-tooltip", { attrs: { bottom: "" } }, [
-                _c("td", [_vm._v("Id ")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("First Name")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("Last Name")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("Email")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("Mobile No")])
-              ])
-            ],
-            1
-          )
-        ]
-      )
-    ],
-    1
-  )
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
