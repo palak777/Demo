@@ -15,8 +15,19 @@ class EmployeeController extends Controller
     public function index()
     {
         $employeeData = Employee::all();
-       // dd($employeeData);
+        dd($employeeData);
+        
         return response()->json($employeeData);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -28,18 +39,28 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $employeeData=new Employee([    
-            'full_name'=>$request->get('full_name'),
+            'first_name'=>$request->get('first_name'),
+            'last_name'=>$request->get('last_name'),
             'email'=>$request->get('email'),
-            'country'=>$request->get('country'),
-            'address'=>$request->get('address'),
-            'gender'=>$request->get('gender'),
-            'bdate'=>$request->get('bdate'),     
-            'hobbies'=>$request->get('hobbies')
+            'password'=>$request->get('password'),
+            'mobile_no'=>$request->get('mobile_no')
         ]); 
         
         $employeeData->save();  
+        
         return response()->json( 'Successfully Added !');       
 
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
     }
 
     /**
@@ -51,6 +72,7 @@ class EmployeeController extends Controller
     public function edit($id)
     {
         $employeeData=Employee::find($id);
+        
         return response()->json($employeeData);
     }
 
@@ -64,16 +86,14 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         $employeeData=Employee::find($id);
-        $employeeData->full_name=$request->get('full_name');
+        $employeeData->first_name=$request->get('first_name');
+        $employeeData->last_name=$request->get('last_name');
         $employeeData->email=$request->get('email');
-        $employeeData->country=$request->get('country');
-        $employeeData->address=$request->get('address');
-        $employeeData->gender=$request->get('gender');
-        $employeeData->bdate=$request->get('bdate');        
-        $employeeData->hobbies=$request->get('hobbies');
+        $employeeData->password=$request->get('password');
+        $employeeData->mobile_no=$request->get('mobile_no');
         $employeeData.save();
 
-        return response()->json('Successfully Updated');            
+        return response()->json('Successfully Updated');  
     }
 
     /**
@@ -86,6 +106,7 @@ class EmployeeController extends Controller
     {
         $employeeData=Employee::find($id);
         $employeeData->delete();
+        
         return redirect()->json('Successfully Deleted !');
     }
 }

@@ -21,6 +21,7 @@
         "vuex": "^2.1.1"
     },
     "dependencies": {
+        "vee-validate": "^2.0.9",
         "vue-axios": "^2.1.1",
         "vuetify": "^1.0.18"
     }

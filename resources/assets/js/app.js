@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VeeValidate from 'vee-validate';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
 
-import Demo from './demo.vue';
+
 import Employee from './components/employee.vue';
 import CreateEmployee from './components/CreateEmployee.vue';
 import EditEmployee from './components/EditEmployee.vue';
@@ -14,11 +15,12 @@ import EditEmployee from './components/EditEmployee.vue';
 Vue.use(VueAxios, axios);
 Vue.use(VueRouter);
 Vue.use(Vuetify);
+Vue.use(VeeValidate);
 
 const routes = [
 
   {
-      name: 'Employee',
+      name: 'employee',
       path: '/',
       component: Employee
   },

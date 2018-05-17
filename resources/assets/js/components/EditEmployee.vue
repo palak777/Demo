@@ -2,56 +2,53 @@
   <div>
     <h1>Update An Employee</h1>
     <form v-on:submit.prevent="updateEmployee">
-    <div class="form-group">
-      <label for="formName">Full Name:</label>
-      <input type="text" name="name" class="form-control" id="formName" v-model="employeeData.first_name" v-validate="'required'"> 
-      <span v-show="errors.has('name')" class="text-danger">{{ errors.first('name') }}</span>
-    </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>First Name:</label>
-            <input type="text" class="form-control" v-model="employeeData.first_name" v-validate="'required'" name="firstName" >
-            <span v-show="errors.has('firstName')">First Name is Required</span>
-          </div>
-        </div>
-        </div>
-        <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Last Name:</label>
-            <input type="text" class="form-control" v-model="employeeData.last_name">
-          </div>
-        </div>
-        </div>
-        <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Email:</label>
-            <input type="text" class="form-control" v-model="employeeData.email">
-          </div>
-        </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Password:</label>
-              <input type="password" class="form-control col-md-6" v-model="employeeData.password" />
-            </div>
-          </div>
-        </div>
-        <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Mobile No:</label>
-            <input type="text" class="form-control" v-model="employeeData.mobile_no">
-          </div>
-        </div>
-        </div>
-        <br />
-        <div class="form-group">
-          <button class="btn btn-primary">Update</button>
-        </div>
+        <v-container grid-list-md>
+      <v-layout row>
+        <v-flex xs4>
+            <v-subheader>First Name : </v-subheader>
+        </v-flex>
+        <v-flex xs6>
+            <v-text-field v-model="employeeData.first_name" placeholder="First Name" class="input-group--focused"  v-validate="'required|max:10'" data-vv-name="firstName" :error-messages="errors.collect('firstName')" counter="10"></v-text-field>
+        </v-flex>
+      </v-layout>
+      <v-layout row>
+        <v-flex xs4>
+            <v-subheader>Last Name : </v-subheader>
+        </v-flex>
+        <v-flex xs6>
+            <v-text-field v-model="employeeData.last_name" placeholder="Last Name" class="input-group--focused"  v-validate="'required|max:10'" data-vv-name="lastName" :error-messages="errors.collect('lastName')" counter="10"></v-text-field>
+        </v-flex>
+      </v-layout>
+      <v-layout row>
+        <v-flex xs4>
+            <v-subheader>Email : </v-subheader>
+        </v-flex>
+        <v-flex xs6>
+            <v-text-field v-model="employeeData.email" placeholder="Email Address" class="input-group--focused"  v-validate="'required|email'" data-vv-name="emailId" :error-messages="errors.collect('emailId')"></v-text-field>
+        </v-flex>
+      </v-layout>
+      <v-layout row>
+        <v-flex xs4>
+            <v-subheader>Password : </v-subheader>
+        </v-flex>
+        <v-flex xs6>
+            <v-text-field v-model="employeeData.password" placeholder="Password" class="input-group--focused" 
+          :type="'password'" v-validate="'required|max:10'" data-vv-name="password" :error-messages="errors.collect('password')"></v-text-field>
+        </v-flex>
+      </v-layout>
+      <v-layout row>
+        <v-flex xs4>
+            <v-subheader>Mobile No : </v-subheader>
+        </v-flex>
+        <v-flex xs6>
+            <v-text-field v-model="employeeData.mobile_no" class="input-group--focused"></v-text-field>
+        </v-flex>
+      </v-layout>
+      <v-layout>
+        <v-btn type="submit">submit</v-btn>
+        <v-btn color="error" @click="clear">clear</v-btn>
+      </v-layout>
+    </v-container>
     </form>
   </div>
 </template>
@@ -72,7 +69,7 @@
         methods: {
             getEmployee()
             {
-              let uri = `http://localhost:8000/employees/${this.$route.params.id}/edit`;
+              let uri = `http://127.0.0.1:8000/employees/${this.$route.params.id}/edit`;
                 this.axios.get(uri).then((response) => {
                     this.employeeData = response.data;
                 });
@@ -80,7 +77,7 @@
 
             updateEmployee()
             {
-              let uri = 'http://localhost:8000/employees/'+this.$route.params.id;
+              let uri = 'http://127.0.0.1:8000/employees/'+this.$route.params.id;
                 this.axios.patch(uri, this.employeeData).then((response) => {
                   this.$router.push({name: 'employee'});
                 });

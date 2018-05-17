@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Items</h1>
+        <h2>Employees Information</h2>
 
         <div class="row">
           <div class="col-md-10"></div>
@@ -8,8 +8,8 @@
                  <router-link :to="{ name: 'addEmployee' }" class="btn btn-primary">Add</router-link>
           </div>
         </div><br />
-        <div class="row" v-show="employeeData == 0">There is no data</div>
-        <div class="row">
+        
+        <div class="row" >
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -36,6 +36,7 @@
                 </tbody>
             </table>
         </div>
+        <div class="row"><span>There is no data</span></div>
     </div>
 </template>
 
@@ -54,14 +55,15 @@
         methods: {
             fetchEmployee()
             {
-              let uri = 'http://localhost:8000';
+              let uri = 'http://127.0.0.1:8000';
               this.axios.get(uri).then((response) => {
                   this.employeeData = response.data;
+                  console.log(response.data);
               });
             },
             deleteEmployee(id)
             {
-              let uri = `http://localhost:8000/employees/${id}`;
+              let uri = `http://127.0.0.1:8000/employees/${id}`;
               this.items.splice(id, 1);
               this.axios.delete(uri);
             }
