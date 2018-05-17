@@ -38822,29 +38822,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             employeeData: []
+
         };
     },
 
@@ -38855,16 +38839,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         fetchEmployee: function fetchEmployee() {
             var _this = this;
 
-            var uri = 'http://127.0.0.1:8000';
+            var uri = 'http://127.0.0.1:8000/employees';
             this.axios.get(uri).then(function (response) {
                 _this.employeeData = response.data;
-                console.log(response.data);
+                //console.log(response.data);
             });
-        },
-        deleteEmployee: function deleteEmployee(id) {
-            var uri = 'http://127.0.0.1:8000/employees/' + id;
-            this.items.splice(id, 1);
-            this.axios.delete(uri);
         }
     }
 });
@@ -38877,110 +38856,57 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h2", [_vm._v("Employees Information")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-10" }),
-      _vm._v(" "),
+  return _c(
+    "div",
+    [
       _c(
-        "div",
-        { staticClass: "col-md-2" },
+        "v-data-table",
+        {
+          staticClass: "elevation-1",
+          scopedSlots: _vm._u([
+            {
+              key: "employeeData",
+              fn: function(employee) {
+                return _c("tr", {}, [
+                  _c("td", [_vm._v(_vm._s(employee.id))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(employee.first_name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(employee.last_name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(employee.email))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(employee.mobile_no))])
+                ])
+              }
+            }
+          ])
+        },
         [
           _c(
-            "router-link",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { to: { name: "addEmployee" } }
-            },
-            [_vm._v("Add")]
-          )
-        ],
-        1
-      )
-    ]),
-    _c("br"),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("table", { staticClass: "table table-hover" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.employeeData, function(employee) {
-            return _c("tr", [
-              _c("td", [_vm._v(_vm._s(employee.id))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(employee.first_name))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(employee.last_name))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(employee.email))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(employee.mobile_no))]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    attrs: { to: { name: "editEmployee" } }
-                  },
-                  [_vm._v("Edit")]
-                ),
+            "tr",
+            [
+              _c("v-tooltip", { attrs: { bottom: "" } }, [
+                _c("td", [_vm._v("Id ")]),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    on: {
-                      click: function($event) {
-                        _vm.deleteEmployee(employee.id)
-                      }
-                    }
-                  },
-                  [_vm._v("Delete")]
-                )
+                _c("td", [_vm._v("First Name")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Last Name")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Email")]),
+                _vm._v(" "),
+                _c("td", [_vm._v("Mobile No")])
               ])
-            ])
-          })
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _vm._m(1)
-  ])
+            ],
+            1
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("td", [_vm._v("ID")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("First Name")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Last Name")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Email")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("MobileNo")]),
-        _vm._v(" "),
-        _c("td", [_vm._v("Actions")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("span", [_vm._v("There is no data")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
