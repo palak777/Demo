@@ -7,15 +7,17 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
 
-
+  
 import Employee from './components/employee.vue';
 import CreateEmployee from './components/CreateEmployee.vue';
 import EditEmployee from './components/EditEmployee.vue';
+import DisplayEmployee from './components/DisplayEmployee.vue';
 
 Vue.use(VueAxios, axios);
 Vue.use(VueRouter);
-Vue.use(Vuetify);
 Vue.use(VeeValidate);
+Vue.use(Vuetify);
+
 
 const routes = [
 
@@ -23,6 +25,11 @@ const routes = [
       name: 'employee',
       path: '/',
       component: Employee
+  },
+  {
+      name: 'displayEmployee',
+      path: '/displayEmployee',
+      component: DisplayEmployee
   },
   {
       name: 'addEmployee',

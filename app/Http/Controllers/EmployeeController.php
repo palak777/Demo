@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Employee;
+use App\Http\Requests\employeeForm;
 
 class EmployeeController extends Controller
 {
@@ -35,8 +36,9 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(employeeForm $request)
     {
+        $validated = $request->validated();
         $employeeData=new Employee([    
             'first_name'=>$request->get('first_name'),
             'last_name'=>$request->get('last_name'),
@@ -44,7 +46,6 @@ class EmployeeController extends Controller
             'password'=>$request->get('password'),
             'mobile_no'=>$request->get('mobile_no')
         ]); 
-        
         $employeeData->save();  
         
         return response()->json( 'Successfully Added !');       
@@ -82,7 +83,7 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(employeeForm $request, $id)
     {
         $employeeData=Employee::find($id);
         $employeeData->first_name=$request->get('first_name');
@@ -90,7 +91,7 @@ class EmployeeController extends Controller
         $employeeData->email=$request->get('email');
         $employeeData->password=$request->get('password');
         $employeeData->mobile_no=$request->get('mobile_no');
-        
+        $validated = $request->validated();
         $employeeData->save();
 
         return response()->json('Successfully Updated');  
