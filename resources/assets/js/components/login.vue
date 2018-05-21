@@ -2,6 +2,9 @@
   <form v-on:submit.prevent="submit" enctype="multipart/form-data">
     <v-container grid-list-md>
       <v-layout row>
+        <center><h2>Login Details</h2></center>
+      </v-layout>
+      <v-layout row>
         <v-flex xs4>
             <v-subheader >User Name : </v-subheader>
         </v-flex>

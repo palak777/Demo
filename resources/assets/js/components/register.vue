@@ -1,6 +1,9 @@
  <template>
   <form v-on:submit.prevent="submit">
     <v-container grid-list-md>
+    <v-layout row>
+        <center><h2>Registeration</h2></center>
+      </v-layout>
       <v-layout row>
         <v-flex xs4>
             <v-subheader >User Name : </v-subheader>
