@@ -2,8 +2,6 @@
     <v-app>
         <div>
          <v-btn color="primary" dark class="mb-2" :to="{name : 'addEmployee'}">New Employee</v-btn>
-         <v-btn color="primary" dark class="mb-2" :to="{name : 'displayEmployee'}">Display Employee</v-btn>
-
             <v-data-table  class="elevation-1" :headers="headers" :items="employeeData"
             :search="search" :pagination.sync="pagination" >
             
@@ -27,6 +25,7 @@
      </v-app>
 </template>
 <script>
+// import store from "../store/index";
 
     export default {
         data(){
@@ -57,15 +56,20 @@
         },
         created: function()
         {
-            this.fetchEmployee();
+            this.fetchEmployee();     
         },
         methods: {
             fetchEmployee()
             {
               let uri = 'http://127.0.0.1:8000/employees';
-              this.axios.get(uri).then((response) => {
+              this.axios.get(uri).then(
+                (response) => {
                   this.employeeData = response.data;
-              });
+                },
+                (error)=>{
+
+                }
+              );
             },
             deleteEmployee(id)
             {

@@ -29,7 +29,7 @@ class EmployeeController extends Controller
     {
         //
     }
-
+  
     /**
      * Store a newly created resource in storage.
      *
@@ -39,13 +39,16 @@ class EmployeeController extends Controller
     public function store(employeeForm $request)
     {
         $validated = $request->validated();
+        
         $employeeData=new Employee([    
             'first_name'=>$request->get('first_name'),
             'last_name'=>$request->get('last_name'),
+            'gender'=>$request->get('gender'),
             'email'=>$request->get('email'),
             'password'=>$request->get('password'),
             'mobile_no'=>$request->get('mobile_no')
         ]); 
+        //dd($employeeData);
         $employeeData->save();  
         
         return response()->json( 'Successfully Added !');       

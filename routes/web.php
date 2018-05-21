@@ -14,4 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+// Route::middleware('jwt.auth')->get('users', function(Request $request) {
+//     return auth()->user();
+// });
+ Route::post('user/register', 'usersController@register');
+ Route::post('user/login', 'usersController@login');
 Route::resource('employees','EmployeeController');
+Route::post('user/logout','usersController@logout');

@@ -1,5 +1,5 @@
  <template>
-  <form v-on:submit.prevent="submit">
+  <form v-on:submit.prevent="submit" enctype="multipart/form-data">
     <v-container grid-list-md>
       <v-layout row>
         <v-flex xs4>
@@ -81,7 +81,7 @@
             <v-subheader>Mobile No : </v-subheader>
         </v-flex>
         <v-flex xs6>
-            <v-text-field v-model="employeeData.mobile_no" class="input-group--focused" counter="10" v-validate="'required'" data-vv-name="mobileNo" :error-messages="errors.collect('mobileNo')"></v-text-field>
+            <v-text-field v-model="employeeData.mobile_no" class="input-group--focused" counter="10" v-validate="'required|numeric'" data-vv-name="mobileNo" :error-messages="errors.collect('mobileNo')"></v-text-field>
         </v-flex>
       </v-layout>
     <!--   <v-layout row>
@@ -89,14 +89,28 @@
             <v-subheader>Hobbies : </v-subheader>
         </v-flex>
         <v-flex xs6>
-            <v-checkbox>
-              
-            </v-checkbox>
+            <v-checkbox v-model="employeeData.hobbies">Music</v-checkbox>
         </v-flex>
       </v-layout>
  -->      
+    <!--   <v-layout>
+          <v-flex xs4>
+            <v-subheader>Picture : </v-subheader>
+          </v-flex>
+        <v-flex xs6 class="text-xs-center text-sm-center text-md-center text-lg-center">
+          <img :src="imageUrl" height="30" v-if="imageUrl"/>
+          <v-text-field label="Select Image" @click='pickFile' v-model='employeeData.pic'></v-text-field>
+          <input
+            type="file"
+            style="display: none"
+            ref="image"
+            accept="image/*"
+            @change="onFilePicked"
+          >
+        </v-flex>
+       </v-layout> -->
       <v-layout>
-        <v-btn type="submit">submit</v-btn>
+        <v-btn type="submit" color="success">submit</v-btn>
         <v-btn color="error" @click="clear">clear</v-btn>
       </v-layout>
     </v-container>
@@ -115,6 +129,9 @@
           //             {text:'city2'},
           //             {text:'city3'},
           //             {text:'city4'}],
+          dialog: false,
+          imageUrl: '',
+          imageFile: '',
           employeeData:{
             'first_name':'',
             'last_name':'',
@@ -122,24 +139,55 @@
             'email':'',
             'password':'',
             'mobile_no':'',
-            'hobbies':['music','craft','sports']
+            'pic':'',
+            'hobbies':[]
           }
         }
     },
     methods: {
       submit () {
-        this.$validator.validateAll()
-        let uri = 'http://127.0.0.1:8000/employees';
-              this.axios.post(uri, this.employeeData).then((response) => {
-              this.$router.push({name: 'employee'})         
-              });
+          let uri = 'http://127.0.0.1:8000/employees';
+          this.$validator.validateAll().then(
+            (response)=>{
+              this.axios.post(uri, this.employeeData).then(
+                (response) => {
+                  this.$toasted.success('Employee Details have been saved', { icon : 'check'});
+                  this.$router.push({name: 'employee'})         
+                },
+                (error)=>{
+                  this.$toasted.error('Somthing goes wrong !',{duration:1000});
+                }
+              );
+            },
+            (error)=>{
+
+            }
+            );
       },
       clear () {        
         this.$validator.reset()
       },
-      addEmployee(){
-            //console.log(this.$validator.validateAll());
-
+      pickFile () {
+        this.$refs.image.click () 
+      },
+      onFilePicked (e) {
+        const files = e.target.files
+        if(files[0] !== undefined) {
+          this.employeeData.pic = files[0].name
+          if(this.employeeData.pic.lastIndexOf('.') <= 0) {
+             return
+          }
+          const fr = new FileReader ()
+          fr.readAsDataURL(files[0])
+          fr.addEventListener('load', () => {
+            this.imageUrl = fr.result
+            this.imageFile = files[0] // this is an image file that can be sent to server...
+          })
+        } else {
+          this.employeeData.pic = ''
+          this.imageFile = ''
+          this.imageUrl = ''
+        }
       }
     }
   }

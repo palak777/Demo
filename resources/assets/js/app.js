@@ -1,45 +1,57 @@
+import Axios from 'axios';
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-import VeeValidate from 'vee-validate';
 import VueAxios from 'vue-axios';
-import axios from 'axios';
-import Vuetify from 'vuetify'
-import 'vuetify/dist/vuetify.min.css'
+import VueRouter from 'vue-router';
+import VueToasted from 'vue-toasted';
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
+import VeeValidate from 'vee-validate';
+import Vuex from  'vuex';
 
-
-  
-import Employee from './components/employee.vue';
 import CreateEmployee from './components/CreateEmployee.vue';
-import EditEmployee from './components/EditEmployee.vue';
 import DisplayEmployee from './components/DisplayEmployee.vue';
+import EditEmployee from './components/EditEmployee.vue';
+import Employee from './components/employee.vue';
+import Login from './components/login.vue';
+import Register from './components/register.vue';
+import Store from './store/index.js';
 
-Vue.use(VueAxios, axios);
+
+Vue.use(VueAxios, Axios);
 Vue.use(VueRouter);
 Vue.use(VeeValidate);
 Vue.use(Vuetify);
+Vue.use(VueToasted);
+Vue.use(Vuex);
 
 
 const routes = [
 
   {
-      name: 'employee',
-      path: '/',
-      component: Employee
+    component: Login,
+    name: 'login',
+    path: '/'
   },
   {
-      name: 'displayEmployee',
-      path: '/displayEmployee',
-      component: DisplayEmployee
+    component: Register,
+    name: 'register',
+    path: '/user/register'
   },
   {
-      name: 'addEmployee',
-      path: '/employees/add',
-      component: CreateEmployee
+    component: Employee,
+    name: 'employee',
+    path: '/employees'
   },
   {
-      name: 'editEmployee',
-      path: '/edit:id',
-      component: EditEmployee
+    component: CreateEmployee,
+    name: 'addEmployee',
+    path: '/employees/add',
+    
+  },
+  {
+    component: EditEmployee,
+    name: 'editEmployee',
+    path: '/edit:id'
   }
 
 ];
@@ -55,5 +67,6 @@ const app = new Vue({
     		routes:routes,
     	}
     },
-    router
+    router,
+    Store
 });
