@@ -5,7 +5,7 @@ import * as actions from './actions'
 import * as getters from './getters'
 import * as types from './mutation-types'
 
-//import Employee from './modules/employee'
+import Employee from './modules/employee'
 import Emp from './modules/emp'
 
 Vue.use(Vuex)
@@ -22,7 +22,7 @@ export default new Vuex.Store({
   mutations,
   getters,
   modules: {
-  //	Employee,
+  	Employee,
   	Emp
   }
 })
