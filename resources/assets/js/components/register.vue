@@ -12,14 +12,14 @@
             <v-text-field v-model="userData.name" placeholder="Name" class="input-group--focused"  v-validate="'required|max:10'" data-vv-name="name" :error-messages="errors.collect('name')" counter="10"></v-text-field>
         </v-flex>
       </v-layout>
-      <v-layout row>
+      <!-- <v-layout row>
         <v-flex xs4>
             <v-subheader >User Name : </v-subheader>
         </v-flex>
         <v-flex xs6>
             <v-text-field v-model="userData.user_name" placeholder="User Name" class="input-group--focused"  v-validate="'required|max:10'" data-vv-name="userName" :error-messages="errors.collect('userName')" counter="10"></v-text-field>
         </v-flex>
-      </v-layout>
+      </v-layout> -->
        <v-layout row>
         <v-flex xs4>
             <v-subheader>Email : </v-subheader>
@@ -50,7 +50,6 @@
         return{
           userData:{
             'name':'',
-            'user_name':'',
             'email':''
           }
         }

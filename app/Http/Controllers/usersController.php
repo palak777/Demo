@@ -14,7 +14,6 @@ class usersController extends Controller
 	//	dd($request);
     	Users::create([
 			 'name'=>$request->get('name'),
-			 'username'=>$request->get("user_name"),
 			 'email'=>$request->get('email'),
     		'password'=>bcrypt($request->get("password"))
     	]);
@@ -26,7 +25,7 @@ class usersController extends Controller
     }
 
     public function login(Request $request){
-    	$credentials=$request->only('user_name','password');
+    	$credentials=$request->only('name','password');
     	try{
     		if(!$token=JWTAuth::attempt($credentials)){
     			return response()->json(['error'=>'Invalid Credentials'],401);
