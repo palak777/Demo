@@ -11,12 +11,15 @@ class usersController extends Controller
 {
     //
     public function register(Request $request){
-
+	//	dd($request);
     	Users::create([
-    		'user_name'=>$request->get("user_name"),
+			 'name'=>$request->get('name'),
+			 'username'=>$request->get("user_name"),
+			 'email'=>$request->get('email'),
     		'password'=>bcrypt($request->get("password"))
     	]);
-    	$user=Users::first();
+		 $user=Users::first();
+		// dd($user);
     	$token=JWTAuth::fromUser($user);
 
     	return Response::json(compact('token'));
